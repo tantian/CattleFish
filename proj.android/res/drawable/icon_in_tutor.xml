@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- no pressed -->
+    <item android:drawable="@drawable/icon_in_tutor_nor" android:state_pressed="false"/>
+
+    <!-- pressed -->
+    <item android:drawable="@drawable/icon_in_tutor_sel" android:state_pressed="true"/>
+
+    <!-- default -->
+    <item android:drawable="@drawable/icon_in_tutor_nor"/>
+
+</selector>
