@@ -1,7 +1,14 @@
 #include "AppDelegate.h"
 #include "HelloWorldScene.h"
+#include <jni.h>
 
 USING_NS_CC;
+
+extern "C" {
+	JNIEXPORT void JNICALL Java_org_cocos2dx_lib_CocosBroadcastReceiver_nativeEnd(JNIEnv*  env, jobject thiz) {
+		cocos2d::Director::getInstance()->end();
+	}
+}
 
 AppDelegate::AppDelegate() {
 
@@ -28,6 +35,8 @@ static int register_all_packages()
 {
     return 0; //flag for packages manager
 }
+
+
 
 bool AppDelegate::applicationDidFinishLaunching() {
     // initialize director
@@ -87,7 +96,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 // This function will be called when the app is inactive. When comes a phone call,it's be invoked too
 void AppDelegate::applicationDidEnterBackground() {
     Director::getInstance()->stopAnimation();
-
+    log(" ---- applicationDidEnterBackground");
     // if you use SimpleAudioEngine, it must be pause
     // SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
 }

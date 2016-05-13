@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.readboy.cattlefish"
-      android:versionCode="1"
+      android:versionCode="160512001"
       android:versionName="1.0"
       android:installLocation="auto">
 
@@ -27,10 +27,12 @@
         <meta-data android:name="BaiduMobAd_CHANNEL" android:value="F100"/>
 	    <meta-data android:name="BaiduMobAd_STAT_ID" android:value="d1580a3c0d"/>
 
-        <activity android:name="com.readboy.cattlefish.MainActivity"
-                  android:label="@string/app_name"
-                  android:screenOrientation="landscape"
-                  android:configChanges="keyboard|keyboardHidden|orientation|screenSize|fontScale">
+        <activity
+            android:launchMode="singleTop"
+            android:name="com.readboy.cattlefish.MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|fontScale">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

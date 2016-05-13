@@ -39,8 +39,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.baidu.mobstat.StatService;
-import com.iflytek.tts.TtsService.Tts;
-import com.iflytek.tts.TtsService.Tts.onReadListeren;
 import com.readboy.cocos2dx.jni.ReadGameData;
 import com.readboy.cocos2dx.jni.SoundResInfo;
 import com.readboy.plan.service.PlanRecordDatabase;
@@ -121,7 +119,6 @@ public class MainActivity extends Cocos2dxActivity {
 		StatService.setAppChannel(this, machine_type, true);
 		printMemory(0);
 	}
-	
 	
 	
 	@Override
@@ -267,7 +264,9 @@ public class MainActivity extends Cocos2dxActivity {
 	}
 	
 	public static void voiceStop() {
-		sound().stop();
+		if (mSound != null) {
+			sound().stop();
+		}
 	}
 	
 	

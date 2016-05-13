@@ -21,7 +21,9 @@ Scene* HelloWorld::createScene()
     return scene;
 }
 
-HelloWorld::HelloWorld() {
+HelloWorld::HelloWorld()
+: m_key_lstnr(nullptr)
+{
 	log("HelloWorld HelloWorld()!!!");
 }
 
@@ -86,11 +88,11 @@ void HelloWorld::loadResource(float dt) {
 
 
 void HelloWorld::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event) {
-	log("-------- HelloWold onkeyPressed");
+	log("-------- HelloWold onkeyPressed %d ", keyCode);
 }
 
 void HelloWorld::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event) {
-	if (keyCode == EventKeyboard::KeyCode::KEY_BACK || keyCode == EventKeyboard::KeyCode::KEY_HOME) {
+	if (keyCode == EventKeyboard::KeyCode::KEY_BACK || keyCode == EventKeyboard::KeyCode::KEY_HOME || keyCode == EventKeyboard::KeyCode::KEY_KP_HOME) {
 		log("-------- HelloWold onKeyReleased KEY_BACK ");
 		SimpleAudioEngine* audio = SimpleAudioEngine::getInstance();
 		audio->stopBackgroundMusic(true);
@@ -102,10 +104,12 @@ void HelloWorld::onEnter() {
 	Layer::onEnter();
 	log("HelloWorld onEnter()!!!");
 
-	if (!m_key_lstnr) {
+	if (m_key_lstnr == nullptr) {
 		m_key_lstnr = EventListenerKeyboard::create();
+		m_key_lstnr->onKeyPressed = CC_CALLBACK_2(HelloWorld::onKeyPressed, this);
 		m_key_lstnr->onKeyReleased = CC_CALLBACK_2(HelloWorld::onKeyReleased, this);
 		Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(m_key_lstnr,this);
+		log("HelloWorld onEnter() create m_key_lstnr ");
 	}
 
 }
@@ -113,8 +117,9 @@ void HelloWorld::onEnter() {
 void HelloWorld::onExit() {
 	this->unschedule(schedule_selector(HelloWorld::loadResource));
 	Layer::onExit();
-	if (m_key_lstnr) {
+	if (m_key_lstnr != nullptr) {
 		Director::getInstance()->getEventDispatcher()->removeEventListener(m_key_lstnr);
+		m_key_lstnr = nullptr;
 	}
 	log("HelloWorld onExit()!!!");
 }

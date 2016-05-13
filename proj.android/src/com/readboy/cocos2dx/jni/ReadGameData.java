@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import android.os.Environment;
 import android.util.Log;
 
+import com.readboy.cattlefish.MainActivity;
 import com.readboy.tutorgame.TutorGameData;
 import com.readboy.tutorgame.TutorGameQst;
 
@@ -163,7 +164,7 @@ public class ReadGameData {
 			
 		}
 		
-		
+		MainActivity.voiceStop();
 		return msgs;
 	}
 	
