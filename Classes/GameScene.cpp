@@ -15,8 +15,11 @@
 #include "ui/CocosGUI.h"
 #include "ReadJSON.h"
 
+#include "cocostudio/CocoStudio.h"
+
 USING_NS_CC_EXT;
 
+using namespace cocostudio;
 using namespace CocosDenshion;
 using namespace ui;
 
@@ -695,6 +698,13 @@ void GameScene::secondLoadRes(float dt) {
 	this->addChild(efect, Z_WATER_EFFECT);
 	efect->scheduleUpdate();
 
+//	ArmatureDataManager::getInstance()->addArmatureFileInfo("ThirdFish/ThirdFish0.png","ThirdFish/ThirdFish0.plist","ThirdFish/ThirdFish.ExportJson");
+//	Armature *armature = Armature::create("ThirdFish");
+//	armature->setPosition(Point(visibleSize.width * 0.3, visibleSize.height * 0.7));
+//	//播放动画
+//	armature->getAnimation()->play("swimming");
+//	armature->setScale(0.66f);
+//	this->addChild(armature);
 
 }
 
