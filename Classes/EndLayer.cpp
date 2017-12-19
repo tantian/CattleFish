@@ -174,11 +174,11 @@ void EndLayer::setQuestion(__Array* qstlist, int done) {
 	auto m_cache=SpriteFrameCache::getInstance();
 
 	auto qst = m_qstlist.at(m_curshow);
-	if (visibleSize.width > visibleSize.height) {
-		m_qstlabel = QuestionLabel::createWithSystemFont(qst, "fonts/arial.ttf", fontSize, Size(m_bg_sz.width*0.8, m_bg_sz.height/2));
-	} else {
-		m_qstlabel = QuestionLabel::createWithSystemFont(qst, "fonts/readboy_code.ttf", fontSize, Size(m_bg_sz.width*0.8, m_bg_sz.height/2));
-	}
+//	if (visibleSize.width > visibleSize.height) {
+		m_qstlabel = QuestionLabel::createWithSystemFont(qst, "fonts/Readboy-Code.ttf", fontSize, Size(m_bg_sz.width*0.8, m_bg_sz.height/2));
+//	} else {
+//		m_qstlabel = QuestionLabel::createWithSystemFont(qst, "fonts/readboy_code.ttf", fontSize, Size(m_bg_sz.width*0.8, m_bg_sz.height/2));
+//	}
 //	m_qstlabel->setDimensions(m_bg_sz.width*0.8, m_bg_sz.height/2);
 	m_qstlabel->setVerticalAlignment(TextVAlignment::CENTER);
 	m_qstlabel->setSpaceLine(true);
@@ -230,7 +230,7 @@ void EndLayer::setQuestion(__Array* qstlist, int done) {
 	}
 	m_RightOrWrong->setSpriteFrame(frame);
 
-	JniToJava::savePlanData(right, done, 0, 0);
+//	JniToJava::savePlanData(right, done, 0, 0);
 }
 
 void EndLayer::refresh() {
@@ -285,7 +285,12 @@ void EndLayer::menuNextCallback(cocos2d::Ref* pSender) {
 
 void EndLayer::menuCloseCallback(cocos2d::Ref* pSender) {
 
-    Director::getInstance()->end();
+	JniToJava* jniptr = JniToJava::create();
+		jniptr->release();
+		jniptr->releaseRe();
+
+	    Director::getInstance()->end();
+   // Director::getInstance()->end();
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     exit(0);

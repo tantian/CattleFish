@@ -44,6 +44,8 @@ void JniToJava::showToastMsg(const char* msg) {
 Question* JniToJava::getTitleSubject(int which) {
 	JniMethodInfo t;
 	std::string ret("JniToJava");
+	std::string ret1("JniToJava");
+	std::string ret2("JniToJava");
 	Question* qst = Question::create();
 
 	if(JniHelper::getStaticMethodInfo(t, CLASS_NAME, "qst", "(I)[Ljava/lang/String;")) {
@@ -55,6 +57,7 @@ Question* JniToJava::getTitleSubject(int which) {
 
 //		log(" option subject %s ===== ", chars);
 		ret = JniHelper::jstring2string(jstr);
+		ret1 = ret;
 		qst->setSubject(ret);
 		t.env->DeleteLocalRef(jstr);
 
@@ -65,10 +68,13 @@ Question* JniToJava::getTitleSubject(int which) {
 			const char* chars = t.env->GetStringUTFChars(jstr, nullptr);
 //			log(" option answer %s ", chars);
 			ret = JniHelper::jstring2string(jstr);
+			ret2.append(ret);
+			ret2.append("-");
 			t.env->DeleteLocalRef(jstr);
 			whichoption = optionsrand[i];
 			qst->setOption(ret, whichoption);
 		}
+		log("xuhao %d question %s answer %s", which, ret1.c_str(), ret2.c_str());
 		qst->setRightId(optionsrand[0]);
 
 		t.env->DeleteLocalRef(jobjarry);
@@ -120,6 +126,17 @@ void JniToJava::saveWrongQsts(int rightRate, int errNumber, int qstnumbers[]) {
 		t.env->CallStaticBooleanMethod(t.classID, t.methodID, rightRate, jintArr);
 	}
 }
+void JniToJava::releaseRe(){
+	log("GameScene release232() !!! ");
+	JniMethodInfo t;
+	std::string ret("JniToJava");
+	int qstnumber = 0;
+	if(JniHelper::getStaticMethodInfo(t, "com/readboy/cattlefish/MainActivity", "releaseResourse","()V")){
+		log("GameScene release2322() !!! ");
+		t.env->CallStaticVoidMethod(t.classID, t.methodID);
+	}
+
+}
 
 void JniToJava::savePlanData(int rightTitle, int doCount, int didTime, int score) {
 	JniMethodInfo t;
@@ -128,6 +145,8 @@ void JniToJava::savePlanData(int rightTitle, int doCount, int didTime, int score
 	if(JniHelper::getStaticMethodInfo(t, "com/readboy/cattlefish/MainActivity", "savePlanData", "(IIII)V")) {
 		t.env->CallStaticVoidMethod(t.classID, t.methodID, rightTitle, doCount, didTime, score);
 	}
+	jint tt = 0;
+	int at = tt;
 }
 
 void JniToJava::voiceStart(int qstidx) {
@@ -149,6 +168,7 @@ void JniToJava::voiceStop() {
 }
 
 void JniToJava::release() {
+	log("GameScene release() !!! ");
 	JniMethodInfo t;
 	std::string ret("JniToJava");
 	int qstnumber = 0;
@@ -168,4 +188,3 @@ bool JniToJava::canSound(int qstidx) {
 	}
 	return isSound;
 }
-

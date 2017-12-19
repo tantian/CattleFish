@@ -1,0 +1,16 @@
+<component name="libraryTable">
+  <library name="dexedLibs">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/proj.android/bin/dexedLibs/android_api_3.7.0-c00d81c07c2f90cb03936c8e819cf0dc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/proj.android/bin/dexedLibs/android-async-http-1.4.8-0a704c890c8f12ecc5d9251d9a1b29fb.jar!/" />
+      <root url="jar://$PROJECT_DIR$/proj.android/bin/dexedLibs/tutorgame-061b7094a5cb74a6402cf90631c22cb6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/proj.android/bin/dexedLibs/android-support-v4-fbb63a9c14cd0216804e1e70163dc286.jar!/" />
+      <root url="jar://$PROJECT_DIR$/proj.android/bin/dexedLibs/PlanRecordDatabase-516a0ddb4332b3cdc4761e6119fa32d6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/proj.android/bin/dexedLibs/Androidtts-13848c0e7fe5b227115c8f699398a4d3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/proj.android/bin/dexedLibs/DataCollector-ab6cf1d5b67b0f70a749eaa09ee5f049.jar!/" />
+      <root url="jar://$PROJECT_DIR$/proj.android/bin/dexedLibs/Sound-d3f37b539a06702d6cd650df57808e54.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

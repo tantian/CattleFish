@@ -1,0 +1,16 @@
+<component name="libraryTable">
+  <library name="libs1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/proj.android/libs/Androidtts.jar!/" />
+      <root url="jar://$PROJECT_DIR$/proj.android/libs/tutorgame.jar!/" />
+      <root url="jar://$PROJECT_DIR$/proj.android/libs/android-support-v4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/proj.android/libs/Sound.jar!/" />
+      <root url="jar://$PROJECT_DIR$/proj.android/libs/DataCollector.jar!/" />
+      <root url="jar://$PROJECT_DIR$/proj.android/libs/android-async-http-1.4.8.jar!/" />
+      <root url="jar://$PROJECT_DIR$/proj.android/libs/PlanRecordDatabase.jar!/" />
+      <root url="jar://$PROJECT_DIR$/proj.android/libs/android_api_3.7.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

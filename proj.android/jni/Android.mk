@@ -7,11 +7,27 @@ include $(CLEAT_VARS)
 LOCAL_MODULE := TutorGameData
 LOCAL_SRC_FILES := prebuilt/libTutorGameData.so
 include $(PREBUILT_SHARED_LIBRARY)
+#LOCAL_SHARED_LIBRARIES := TutorGameData
+
+#include $(CLEAT_VARS)
+#LOCAL_MODULE := AudioSpeed
+#LOCAL_SRC_FILES := prebuilt/libAudioSpeed.so
+#include $(PREBUILT_SHARED_LIBRARY)
+##LOCAL_SHARED_LIBRARIES := AudioSpeed
+#
+#include $(CLEAT_VARS)
+#LOCAL_MODULE := sound
+#LOCAL_SRC_FILES := prebuilt/libsound.so
+#include $(PREBUILT_SHARED_LIBRARY)
+##LOCAL_SHARED_LIBRARIES := sound
+
 
 #include $(CLEAT_VARS)
 #LOCAL_MODULE := Aisound
 #LOCAL_SRC_FILES := prebuilt/libAisound.so
 #include $(PREBUILT_SHARED_LIBRARY)
+
+
 ####################### third so end
 
 $(call import-add-path,$(LOCAL_PATH)/../../cocos2d)

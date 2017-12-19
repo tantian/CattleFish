@@ -1,0 +1,38 @@
+07-30 09:53:31.791: A/libc(11541): Fatal signal 6 (SIGABRT), code -6 in tid 11565 (GLThread 164)
+07-30 09:53:31.843: I/DEBUG(311): *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+07-30 09:53:31.843: I/DEBUG(311): Build fingerprint: 'Android/msm8916_64/msm8916_64:5.1.1/LMY47V/gj07282309:userdebug/test-keys'
+07-30 09:53:31.843: I/DEBUG(311): Revision: '0'
+07-30 09:53:31.843: I/DEBUG(311): ABI: 'arm'
+07-30 09:53:31.843: I/DEBUG(311): pid: 11541, tid: 11565, name: GLThread 164  >>> com.readboy.cattlefish <<<
+07-30 09:53:31.843: I/DEBUG(311): signal 6 (SIGABRT), code -6 (SI_TKILL), fault addr --------
+07-30 09:53:31.871: I/DEBUG(311): Abort message: '
+07-30 09:53:31.871: I/DEBUG(311): Java_com_readboy_tutorgame_TutorGameData_getQstNative-err-10-
+07-30 09:53:31.871: I/DEBUG(311): '
+07-30 09:53:31.872: I/DEBUG(311):     r0 00000000  r1 00002d2d  r2 00000006  r3 00000000
+07-30 09:53:31.872: I/DEBUG(311):     r4 e5ed5dd8  r5 00000006  r6 0000000b  r7 0000010c
+07-30 09:53:31.872: I/DEBUG(311):     r8 00000000  r9 ab40bd78  sl ab5ad8d0  fp 00000a0d
+07-30 09:53:31.872: I/DEBUG(311):     ip 00002d2d  sp e5ed55b0  lr f7360c2d  pc f7386580  cpsr 60070010
+07-30 09:53:31.872: I/DEBUG(311): backtrace:
+07-30 09:53:31.872: I/DEBUG(311):     #00 pc 00039580  /system/lib/libc.so (tgkill+12)
+07-30 09:53:31.872: I/DEBUG(311):     #01 pc 00013c29  /system/lib/libc.so (pthread_kill+52)
+07-30 09:53:31.873: I/DEBUG(311):     #02 pc 00014847  /system/lib/libc.so (raise+10)
+07-30 09:53:31.873: I/DEBUG(311):     #03 pc 00010fd5  /system/lib/libc.so (__libc_android_abort+36)
+07-30 09:53:31.873: I/DEBUG(311):     #04 pc 0000f534  /system/lib/libc.so (abort+4)
+07-30 09:53:31.873: I/DEBUG(311):     #05 pc 00217b71  /system/lib/libart.so (art::Runtime::Abort()+160)
+07-30 09:53:31.873: I/DEBUG(311):     #06 pc 000a644b  /system/lib/libart.so (art::LogMessage::~LogMessage()+1322)
+07-30 09:53:31.873: I/DEBUG(311):     #07 pc 000b0159  /system/lib/libart.so (art::JniAbort(char const*, char const*)+1076)
+07-30 09:53:31.873: I/DEBUG(311):     #08 pc 000b06b1  /system/lib/libart.so (art::JniAbortF(char const*, char const*, ...)+60)
+07-30 09:53:31.873: I/DEBUG(311):     #09 pc 001be95f  /system/lib/libart.so (art::JNI::GetArrayLength(_JNIEnv*, _jarray*)+582)
+07-30 09:53:31.873: I/DEBUG(311):     #10 pc 0012f0cf  /system/lib/libcattlefish.so (JniToJava::getTitleSubject(int)+78)
+07-30 09:53:31.873: I/DEBUG(311):     #11 pc 0012c419  /system/lib/libcattlefish.so (GameScene::loadResource(float)+1288)
+07-30 09:53:31.873: I/DEBUG(311):     #12 pc 00177c7f  /system/lib/libcattlefish.so (cocos2d::TimerTargetSelector::trigger(float)+32)
+07-30 09:53:31.873: I/DEBUG(311):     #13 pc 00177e0b  /system/lib/libcattlefish.so (cocos2d::Timer::update(float)+66)
+07-30 09:53:31.874: I/DEBUG(311):     #14 pc 0017a157  /system/lib/libcattlefish.so (cocos2d::Scheduler::update(float)+206)
+07-30 09:53:31.874: I/DEBUG(311):     #15 pc 001723f9  /system/lib/libcattlefish.so (cocos2d::Director::drawScene()+60)
+07-30 09:53:31.874: I/DEBUG(311):     #16 pc 0017250b  /system/lib/libcattlefish.so (cocos2d::DisplayLinkDirector::mainLoop()+42)
+07-30 09:53:31.874: I/DEBUG(311):     #17 pc 00133ebb  /system/lib/libcattlefish.so (Java_org_cocos2dx_lib_Cocos2dxRenderer_nativeRender+10)
+07-30 09:53:31.874: I/DEBUG(311):     #18 pc 00086e45  /data/dalvik-cache/arm/system@app@CattleFish@CattleFish.apk@classes.dex
+07-30 09:53:31.931: V/WLAN_PSA(322): NL MSG, len[048], NL type[0x11] WNI type[0x5050] len[028]
+07-30 09:53:31.931: V/WLAN_PSA(322): NL MSG, PID: 322
+07-30 09:53:32.283: I/DEBUG(311): Tombstone written to: /data/tombstones/tombstone_04
+07-30 09:53:32.284: W/ActivityManager(2162):   Force finishing activity 1 com.readboy.cattlefish/.MainActivity

@@ -58,7 +58,6 @@ public:
 
 	void menuCloseCallback(cocos2d::Ref* pSender);
 	void menuAgainCallback(cocos2d::Ref* pSender);
-
 	void menuSoundCallback(cocos2d::Ref* pSender);
 
 	/**

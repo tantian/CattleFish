@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.readboy.cattlefish"
-      android:versionCode="160513001"
-      android:versionName="1.0"
+      android:versionCode="171218001"
+      android:versionName="1.4.8"
       android:installLocation="auto">
 
-    <uses-sdk android:minSdkVersion="14"/>
+    <uses-sdk android:minSdkVersion="14"
+        android:targetSdkVersion="21"/>
     <uses-feature android:glEsVersion="0x00020000" />
     
          <!-- 添加需要的权限 -->
@@ -15,34 +16,51 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application android:label="@string/app_name"
         android:largeHeap="true"
         android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-        android:icon="@drawable/icon">
-					 
+        android:icon="@drawable/icon"
+        >
+        <!-- Translucent. -->
+			<!--<item name="android:windowIsTranslucent">true</item>	  -->	 
         <!-- Tell Cocos2dxActivity the name of our .so -->
         <meta-data android:name="android.app.lib_name"
 	              android:value="cattlefish" />
         <meta-data android:name="BaiduMobAd_CHANNEL" android:value="F100"/>
 	    <meta-data android:name="BaiduMobAd_STAT_ID" android:value="d1580a3c0d"/>
-
+<!--android.intent.category.DEFAULT-->
         <activity
-            android:launchMode="singleTop"
+			android:launchMode="singleTask"
             android:name="com.readboy.cattlefish.MainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|fontScale">
+            android:screenOrientation="landscape"
+             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|fontScale">
 
             <intent-filter>
+                <action android:name="com.readboy.application"/>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.readboy.FLAG_HIDE_SYSTEMBAR"/>
+                
                 <category android:name="android.intent.category.DEFAULT" />
+               
             </intent-filter>
+            
+                  <!--        <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter> -->
         </activity>
+        <receiver android:name="org.cocos2dx.lib.CocosBroadcastReceiver">  
+                <intent-filter>  
+                    <action android:name="android.intent.action.USER_PRESENT" /> 
+                </intent-filter>  
+            </receiver>
     </application>
-
+<!--  -->
     <supports-screens android:anyDensity="true"
+                      android:resizeable="true"
                       android:smallScreens="true"
                       android:normalScreens="true"
                       android:largeScreens="true"

@@ -60,17 +60,23 @@ public:
      * @param qstnumbers: A series of wrong topic number
      * @js NA
      */
-	static void saveWrongQsts(int rightRate, int errNumber, int qstnumbers[]);
+	void saveWrongQsts(int rightRate, int errNumber, int qstnumbers[]);
 
-	static void savePlanData(int rightTitle, int doCount, int didTime, int score);
+	/** Callback function for notificition java save learn plan data.
+	 * @param rightTitle: The right title number of user answer.
+     * @param doCount: The right title number of user answer.
+     * @param didTime: The time of user play game.
+     * @param score: The score of user play game.
+	 */
+	void savePlanData(int rightTitle, int doCount, int didTime, int score);
 
-	static void voiceStart(int qstidx);
+	void voiceStart(int qstidx);
 
-	static void voiceStop();
+	void voiceStop();
 
-	static void release();
-
-	static bool canSound(int qstidx);
+	void release();
+	void releaseRe();
+	bool canSound(int qstidx);
 
 };
 

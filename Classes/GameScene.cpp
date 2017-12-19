@@ -22,7 +22,11 @@ USING_NS_CC_EXT;
 using namespace cocostudio;
 using namespace CocosDenshion;
 using namespace ui;
-
+extern "C" {
+JNIEXPORT void JNICALL Java_org_cocos2dx_lib_CocosBroadcastReceiver_nativeUnseen(JNIEnv* env, jobject thiz) {
+	cocos2d::Director::getInstance()->getRunningScene()->setVisible(false);
+	log("MainActivity unseen");
+}}
 //namespace cattlefish {
 
 GameScene::GameScene()
@@ -87,6 +91,8 @@ GameScene::~GameScene() {
 }
 
 cocos2d::Scene* GameScene::createScene() {
+	//cocos2d::Director::getInstance()->getRunningScene()->
+
     auto scene = Scene::create();
 
     auto layer = GameScene::create();
@@ -170,6 +176,7 @@ void GameScene::onTouchCancelled(Touch *touch, Event *unused_event) {
 void GameScene::onEnter() {
 	Layer::onEnter();
 	log("GameScene onEnter() !!! ");
+
 //	auto userdef = UserDefault::getInstance();
 //	m_tip_fish = userdef->getIntegerForKey("cattle_fish_tip_fish", 0);
 	if (!m_touchone_lstr) {
@@ -199,10 +206,13 @@ void GameScene::onExit() {
 //	userdef->flush();
 
 	Layer::onExit();
-
-	SimpleAudioEngine* audio = SimpleAudioEngine::getInstance();
-	audio->stopAllEffects();
-	audio->stopBackgroundMusic(true);
+	//游戏退出时，关闭背景音乐
+	//SimpleAudioEngine* audio = SimpleAudioEngine::getInstance();
+	//audio->stopAllEffects();
+	//audio->stopBackgroundMusic(true);
+	//log("music stop:");
+	//add by wen
+//	audio->end();
 	if (m_touchone_lstr) {
 		_eventDispatcher->removeEventListener(m_touchone_lstr);
 	}
@@ -223,7 +233,7 @@ bool GameScene::init() {
     {
         return false;
     }
-
+	log("GameScene init() !!! ");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 	auto watersprite = Sprite::create("humian.png");
@@ -387,7 +397,7 @@ void GameScene::removeLife(cocos2d::Ref* pSender) {
 	m_bogy->setColor(Color3B(255, 255, 255));
 	m_err_qst_num.push_back(m_done);
 	if (m_cattlehead->count()==0) {
-		showEndLayer(false, m_done);
+		showEndLayer(false, m_done+1);
 	} else {
 		initQuestion();
 	}
@@ -553,12 +563,12 @@ void GameScene::loadResource(float dt) {
 	Scale9Sprite* qstbg = Scale9Sprite::create("kuang.png", Rect(0, 0, nineSz.width, nineSz.height),
 			Rect(nineSz.width/4, nineSz.height/3, nineSz.width/2, nineSz.height/3));
 	this->addChild(qstbg, Z_GRASS+1, "sprite_qstbg");
-	qstbg->setPreferredSize(Size(nineSz.width*1.1f, nineSz.height*1.1f));
-	qstbg->setPosition(origin + Vec2(visibleSize.width/2, visibleSize.height*0.11f));
+	qstbg->setPreferredSize(Size(nineSz.width*1.0f, nineSz.height*1.3f));
+	qstbg->setPosition(origin + Vec2(visibleSize.width/2, visibleSize.height*0.13f));
 
-	MenuItemImage* soundItem = getSoundItem();
-	Size sndSz = soundItem->getContentSize();
-	soundItem->setPosition(origin + Vec2(visibleSize.width/2 + qstbg->getContentSize().width*0.5f - sndSz.width*2.0f, sndSz.height*2.0f));
+//	MenuItemImage* soundItem = getSoundItem();
+//	Size sndSz = soundItem->getContentSize();
+//	soundItem->setPosition(origin + Vec2(visibleSize.width/2 + qstbg->getContentSize().width*0.5f - sndSz.width*2.0f, sndSz.height*2.0f));
 //	soundItem->setVisible(true);
 	SpriteFrameCache* m_cache=SpriteFrameCache::getInstance();
 
@@ -571,7 +581,7 @@ void GameScene::loadResource(float dt) {
 	SpriteFrame* frame = m_cache->getSpriteFrameByName("bogy00.png");
 	m_bogy = Bogy::createWithSpriteFrame(frame);
 	m_landbath->addChild(m_bogy, 2, "bogy");
-	Vec2 m_body_vec = Vec2(origin.x+visibleSize.width/2, origin.y+grassprite->getContentSize().height*0.85f);
+	Vec2 m_body_vec = Vec2(origin.x+visibleSize.width/2, origin.y+grassprite->getContentSize().height*0.93);
 	m_bogy->setPosition(m_body_vec);
 
 	std::string letternm[] = {"A.png", "B.png", "C.png"};
@@ -580,11 +590,11 @@ void GameScene::loadResource(float dt) {
 		auto letterframe = m_cache->getSpriteFrameByName(letternm[i]);
 		Size size = letterframe->getOriginalSize();
 		if (visibleSize.width > visibleSize.height) {
-			auto letter = Leffter::createWithSpriteFrame(letterframe, Vec2(origin.x+visibleSize.width*(0.3f+0.2f*i), qstbg->getPosition().y+size.height*1.5f));
+			auto letter = Leffter::createWithSpriteFrame(letterframe, Vec2(origin.x+visibleSize.width*(0.3f+0.2f*i), qstbg->getPosition().y+size.height*1.68f));
 			m_landbath->addChild(letter, 3);
 			m_letterlist->addObject(letter);
 		} else {
-			auto letter = Leffter::createWithSpriteFrame(letterframe, Vec2(origin.x+visibleSize.width*(0.2f+0.3f*i), origin.y+size.height*3));
+			auto letter = Leffter::createWithSpriteFrame(letterframe, Vec2(origin.x+visibleSize.width*(0.2f+0.3f*i), origin.y+size.height*3.18f));
 			m_landbath->addChild(letter, 3);
 			m_letterlist->addObject(letter);
 		}
@@ -615,26 +625,34 @@ void GameScene::loadResource(float dt) {
 //	} else {
 		qst = jni->getTitleSubject(m_qstOrderlst[0]);
 //	}
-	if (jni->canSound(0)) {
-		soundItem->setVisible(true);
-	} else {
-		soundItem->setVisible(false);
-	}
+
 
 	int fontSize = 24/factor;
 	log("factor is %f, fontsize is %d", factor, fontSize);
 
 	m_qstlist->addObject(qst);
 	if (visibleSize.width > visibleSize.height) {
-		m_qstlabel = QuestionLabel::createWithSystemFont(qst, "fonts/arial.ttf", fontSize, Size(qstbg->getContentSize().width*0.88f, qstbg->getContentSize().height));
+		m_qstlabel = QuestionLabel::createWithSystemFont(qst, "fonts/Readboy-Code.ttf", fontSize, Size(qstbg->getContentSize().width*0.88f, qstbg->getContentSize().height));
 	} else {
-		m_qstlabel = QuestionLabel::createWithSystemFont(qst, "fonts/readboy_code.ttf", fontSize, Size(qstbg->getContentSize().width*0.88f, qstbg->getContentSize().height));
+		m_qstlabel = QuestionLabel::createWithSystemFont(qst, "fonts/Readboy-Code.ttf", fontSize, Size(qstbg->getContentSize().width*0.88f, qstbg->getContentSize().height));
+//		m_qstlabel = QuestionLabel::createWithSystemFont(qst, "fonts/readboy_code.ttf", fontSize, Size(qstbg->getContentSize().width*0.88f, qstbg->getContentSize().height));
 	}
 //	m_qstlabel->setDimensions(qstbg->getContentSize().width*0.88f, qstbg->getContentSize().height);
 //	m_qstlabel->setDimensions(visibleSize.width*0.8, visibleSize.height*0.25);
 	m_qstlabel->setVerticalAlignment(TextVAlignment::CENTER);
 	m_qstlabel->setPosition(qstbg->getPosition());
 	this->addChild(m_qstlabel, Z_QST);
+
+	MenuItemImage* soundItem = getSoundItem();
+		Size sndSz = soundItem->getContentSize();
+		soundItem->setPosition(origin + Vec2(visibleSize.width/2 + qstbg->getContentSize().width*0.5f - sndSz.width*2.0f, m_qstlabel->getPositionY()-m_qstlabel->getContentSize().height*0.3+sndSz.height*0.5));
+		if (jni->canSound(0)) {
+			soundItem->setVisible(true);
+		} else {
+			soundItem->setVisible(false);
+		}
+
+
 
 	Label* label = Label::createWithTTF("0", "fonts/arial.ttf", fontSize*1.3f);
 	label->setPosition(Vec2(origin.x + visibleSize.width/2+top->getContentSize().width/5, top->getPosition().y));
@@ -742,18 +760,19 @@ void GameScene::showEndLayer(bool isSuc, int done) {
 	auto audio = SimpleAudioEngine::getInstance();
 	audio->stopAllEffects();
 	int number = m_err_qst_num.size();
+	JniToJava* jniptr = JniToJava::create();
 //	if (!m_data_json) {
 		int* nums = new int[number];
 		for (int i=0; i<number; i++) {
 			nums[i] = m_err_qst_num.at(i);
 //			log("------- showEndLayer num is %d ", nums[i]);
 		}
-		JniToJava::saveWrongQsts((done-number)*10, number, nums);
+		jniptr->saveWrongQsts((done-number)*10, number, nums);
 		delete nums;
 //	}
 	m_err_qst_num.clear();
-	JniToJava::savePlanData(done-number, done, m_time, m_score);
-	JniToJava::voiceStop();
+	jniptr->savePlanData(done-number, done, m_time, m_score);
+	jniptr->voiceStop();
 }
 
 
@@ -791,7 +810,8 @@ void GameScene::optionMovetoBogyCallback(Node* pSender) {
 }
 
 void GameScene::menuSoundCallback(cocos2d::Ref* pSender) {
-	JniToJava::voiceStart(m_done);
+	JniToJava* jniptr = JniToJava::create();
+	jniptr->voiceStart(m_done);
 }
 
 void GameScene::menuAgainCallback(cocos2d::Ref* pSender) {
@@ -804,7 +824,12 @@ void GameScene::menuCloseCallback(cocos2d::Ref* pSender) {
 	if (m_show_end) {
 		return;
 	}
-	JniToJava::release();
+	log("GameScene menuCloseCallback() !!! ");
+
+	JniToJava* jniptr = JniToJava::create();
+	jniptr->release();
+	jniptr->releaseRe();
+
     Director::getInstance()->end();
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)

@@ -149,10 +149,10 @@ public class ReadGameData {
 				if (gmData.getQstNum() > 0) {
 					TutorGameQst qst = gmData.getQst(which);
 					USToChinese us = new USToChinese();					
-					String str = us.usChange(qst.mSubject);
+					String str = qst.mSubject; //us.usChange(qst.mSubject);
 					msgs[0] = us.delSpace(str);
 					for (int i=0; i<qst.mOption.length; i++) {						
-						msgs[i+1] = us.usChange(qst.mOption[i]);
+						msgs[i+1] = qst.mOption[i];// us.usChange(qst.mOption[i]);
 					}
 					mQstLst.add(qst);
 					mTtsSound = SoundResInfo.isSound(path, adr, qst);
