@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -11,6 +13,7 @@ import org.json.JSONObject;
 
 import android.os.Environment;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.readboy.cattlefish.MainActivity;
 import com.readboy.tutorgame.TutorGameData;
@@ -34,6 +37,10 @@ public class ReadGameData {
 
 	
 	public static ArrayList<TutorGameQst> mQstLst = new ArrayList<TutorGameQst>();
+	
+	//保存语音路径
+//	public static Map<Integer, String> mVoicePath = new HashMap<Integer, String>();
+	public static ArrayList<String> mVoicePath = new ArrayList<String>();
 	
 //	private static ReadGameData mReadGameData = null;
 	
@@ -181,12 +188,15 @@ public class ReadGameData {
 		if (f.exists()) {
 			// 获得path文件 json数据
 			JSONObject mJson = getJSONObjectFromPath(false, path);
+			System.out.println("mJson----" + mJson.toString());
 			JSONArray mJsonArr = mJson.optJSONArray("data");
 			
 			if (mJsonArr != null && mJsonArr.length() > which) {
 				
 				try {
 					JSONObject json = mJsonArr.getJSONObject(which);
+//					String str = "{\"content\":\"选词填空：（  ）自行车\",\"options\":[\"开\",\"骑\",\"踢\"],\"correctAnswers\":[\"B\"],\"speech\":\"/storage/emulated/0/1.mp3\"}";
+//					JSONObject json = new JSONObject(str);
 					if (json.has("content")) {
 						// 这里获得题干
 						msgs[0] = json.getString("content");
@@ -213,6 +223,19 @@ public class ReadGameData {
 								msgs[1+rightId] = strTemp;
 							}
 						}
+						
+						String speech = "";
+						// 这里获得语音
+//						System.out.println("hasspeech---"+json.has("speech"));
+						if (json.has("speech")) {
+							speech = json.getString("speech");
+							//语音路径不为空则设置为可播放
+							if(speech != null && "".equals(speech)){
+								mTtsSound = true;
+							}
+//							System.out.println("speech---"+speech);
+						}
+						mVoicePath.add(speech);
 							
 					}
 				} catch (JSONException e) {
@@ -307,5 +330,7 @@ public class ReadGameData {
 		return json;
 	}
 
-	
+	public static void reset(){
+		mVoicePath.clear();
+	}
 }

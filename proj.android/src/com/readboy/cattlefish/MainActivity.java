@@ -26,9 +26,10 @@ THE SOFTWARE.
  ****************************************************************************/
 package com.readboy.cattlefish;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import org.cocos2dx.lib.Cocos2dxActivity;
-import org.cocos2dx.lib.CocosBroadcastReceiver;
-import org.cocos2dx.lib.Cocos2dxHelper;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,14 +38,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.baidu.mobstat.StatService;
@@ -59,6 +55,9 @@ import com.readboy.tutorgame.TutorGameData;
 import com.readboy.tutorgame.TutorGameQst;
 
 public class MainActivity extends Cocos2dxActivity {
+	
+	public static final String TAG = "CattleFish-MainActivity";
+	
 	private static Sound mSound = null;
 	//private static boolean mFlag=false;
 	private BroadcastReceiver mRev = new BroadcastReceiver() {
@@ -129,6 +128,7 @@ public class MainActivity extends Cocos2dxActivity {
 		
 		ReadGameData.Adr = intent.getIntExtra("adr", -1);
 		ReadGameData.APMODE_VALUE = intent.getIntExtra(ReadGameData.APMODE, -1);
+//		ReadGameData.APMODE_VALUE = ReadGameData.LEARN_EYE; // 测试
 		if (ReadGameData.APMODE_VALUE == ReadGameData.LEARN_EYE) {
 			ReadGameData.FilePath = intent.getStringExtra("path");
 			if(ReadGameData.FilePath!=null)edi.putString("file", ReadGameData.FilePath);
@@ -506,13 +506,41 @@ public class MainActivity extends Cocos2dxActivity {
 	}
 	
 	public static void voiceStart(final int qstidx) {
-		if (qstidx < ReadGameData.mQstLst.size()) {
-			TutorGameQst qst = ReadGameData.mQstLst.get(qstidx);
-			if (qst != null) {
-				TutorGameData gmData = new TutorGameData(ReadGameData.FilePath,
-						ReadGameData.Adr, TutorGameData.TYPE_CHOICE, 1, 1, 3, 3);
-				SoundResInfo.playSubject(gmData, ReadGameData.FilePath,
-						ReadGameData.Adr, qst, sound());
+		Log.d(TAG, "voiceStart  " + ReadGameData.APMODE_VALUE + " ,"+ReadGameData.LEARN_EYE);
+		if (ReadGameData.APMODE_VALUE != ReadGameData.LEARN_EYE) {
+			if (qstidx < ReadGameData.mQstLst.size()) {
+				TutorGameQst qst = ReadGameData.mQstLst.get(qstidx);
+				if (qst != null) {
+					TutorGameData gmData = new TutorGameData(ReadGameData.FilePath,
+							ReadGameData.Adr, TutorGameData.TYPE_CHOICE, 1, 1, 3, 3);
+					SoundResInfo.playSubject(gmData, ReadGameData.FilePath,
+							ReadGameData.Adr, qst, sound());
+				}
+			}
+		}else{
+			//学习眼播放语音
+//			Log.d(TAG, "1--voiceStart , " + qstidx);
+//			Log.d(TAG, ReadGameData.mVoicePath.size() + "");
+			if(qstidx >= 0 && ReadGameData.mVoicePath.size() > qstidx){
+				try {
+//					Log.d(TAG, ReadGameData.mVoicePath.get(qstidx));
+					sound().setDataSource(ReadGameData.mVoicePath.get(qstidx));
+					sound().start();
+					
+//					MediaPlayer mp = new MediaPlayer();
+//					FileInputStream fis = new FileInputStream(ReadGameData.mVoicePath.get(qstidx));
+////				mp.setDataSource(ReadGameData.mVoicePath.get(qstidx));
+//					mp.setDataSource(fis.getFD());
+//					mp.prepare();
+//					mp.start();
+//					
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 	}
