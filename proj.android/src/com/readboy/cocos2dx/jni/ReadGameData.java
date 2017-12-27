@@ -230,10 +230,10 @@ public class ReadGameData {
 						if (json.has("speech")) {
 							speech = json.getString("speech");
 							//语音路径不为空则设置为可播放
-							if(speech != null && "".equals(speech)){
+							if(speech != null && !"".equals(speech) && fileIsExists(path)){
 								mTtsSound = true;
 							}
-//							System.out.println("speech---"+speech);
+							System.out.println("speech---"+speech);
 						}
 						mVoicePath.add(speech);
 							
@@ -331,6 +331,22 @@ public class ReadGameData {
 	}
 
 	public static void reset(){
+		System.out.println("reset---" + mVoicePath.size() );
 		mVoicePath.clear();
+		mQstLst.clear();
 	}
+	
+	//判断文件是否存在  
+	public static boolean fileIsExists(String strFile){  
+		try{  
+			File f=new File(strFile);  
+			if(!f.exists()){  
+				return false;  
+			}  
+		}  
+		catch (Exception e){  
+			return false;  
+		}  
+		return true;  
+	} 
 }

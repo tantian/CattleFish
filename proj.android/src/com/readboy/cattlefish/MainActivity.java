@@ -506,7 +506,7 @@ public class MainActivity extends Cocos2dxActivity {
 	}
 	
 	public static void voiceStart(final int qstidx) {
-		Log.d(TAG, "voiceStart  " + ReadGameData.APMODE_VALUE + " ,"+ReadGameData.LEARN_EYE);
+//		Log.d(TAG, "voiceStart  " + ReadGameData.APMODE_VALUE + " ,"+ReadGameData.LEARN_EYE);
 		if (ReadGameData.APMODE_VALUE != ReadGameData.LEARN_EYE) {
 			if (qstidx < ReadGameData.mQstLst.size()) {
 				TutorGameQst qst = ReadGameData.mQstLst.get(qstidx);
@@ -519,8 +519,8 @@ public class MainActivity extends Cocos2dxActivity {
 			}
 		}else{
 			//学习眼播放语音
-//			Log.d(TAG, "1--voiceStart , " + qstidx);
-//			Log.d(TAG, ReadGameData.mVoicePath.size() + "");
+			Log.d(TAG, "1--voiceStart , " + qstidx);
+			Log.d(TAG, ReadGameData.mVoicePath.size() + "");
 			if(qstidx >= 0 && ReadGameData.mVoicePath.size() > qstidx){
 				try {
 //					Log.d(TAG, ReadGameData.mVoicePath.get(qstidx));

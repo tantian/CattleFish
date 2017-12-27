@@ -188,3 +188,12 @@ bool JniToJava::canSound(int qstidx) {
 	}
 	return isSound;
 }
+
+void JniToJava::reset() {
+	log("JNI GameScene reset() !!! ");
+	JniMethodInfo t;
+	std::string ret("JniToJava");
+	if(JniHelper::getStaticMethodInfo(t, CLASS_NAME, "reset", "()V")) {
+		t.env->CallStaticVoidMethod(t.classID, t.methodID);
+	}
+}

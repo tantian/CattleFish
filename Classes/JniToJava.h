@@ -78,6 +78,8 @@ public:
 	void releaseRe();
 	bool canSound(int qstidx);
 
+	void reset();
+
 };
 
 #endif /* JNITOJAVA_H_ */

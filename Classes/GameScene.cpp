@@ -727,10 +727,16 @@ void GameScene::secondLoadRes(float dt) {
 }
 
 void GameScene::reset() {
+
+	log("GameScene reset() !!! ");
+
 	m_catch_fish_counter = 0;
 	m_qstlist->removeAllObjects();
 	m_score = 0;
 	m_done = 0;
+
+	auto jni = JniToJava::create();
+	jni->reset();
 
 	initFirstQuestion();
 	Size visibleSize = Director::getInstance()->getVisibleSize();
