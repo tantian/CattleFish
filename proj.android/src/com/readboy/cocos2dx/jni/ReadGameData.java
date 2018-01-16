@@ -230,7 +230,7 @@ public class ReadGameData {
 						if (json.has("speech")) {
 							speech = json.getString("speech");
 							//语音路径不为空则设置为可播放
-							if(speech != null && !"".equals(speech) && fileIsExists(path)){
+							if(speech != null && !"".equals(speech) && fileIsExists(speech)){
 								mTtsSound = true;
 							}
 							System.out.println("speech---"+speech);
